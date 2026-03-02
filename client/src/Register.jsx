@@ -1,4 +1,4 @@
-import BASE_URL from "../config.js";
+import BASE_URL from "./config.js";
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import "./Auth.css";
@@ -6,7 +6,11 @@ import "./Auth.css";
 const Register = () => {
   const navigate = useNavigate();
 
-  const [formData, setFormData] = useState({ name: "", email: "", password: "" });
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    password: "",
+  });
   const [otp, setOtp] = useState("");
   const [step, setStep] = useState("register");
   const [serverError, setServerError] = useState("");
@@ -76,16 +80,40 @@ const Register = () => {
         <form className="form" onSubmit={handleSubmit}>
           <div className="form-group">
             <label className="label">Full Name</label>
-            <input className="input" type="text" name="name" value={formData.name} onChange={handleChange} placeholder="Your name" required />
+            <input
+              className="input"
+              type="text"
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
+              placeholder="Your name"
+              required
+            />
           </div>
           <div className="form-group">
             <label className="label">Email</label>
-            <input className={`input ${serverError ? "input-error" : ""}`} type="email" name="email" value={formData.email} onChange={handleChange} placeholder="you@example.com" required />
+            <input
+              className={`input ${serverError ? "input-error" : ""}`}
+              type="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              placeholder="you@example.com"
+              required
+            />
             {serverError && <span className="error-msg">{serverError}</span>}
           </div>
           <div className="form-group">
             <label className="label">Password</label>
-            <input className="input" type="password" name="password" value={formData.password} onChange={handleChange} placeholder="Create a password" required />
+            <input
+              className="input"
+              type="password"
+              name="password"
+              value={formData.password}
+              onChange={handleChange}
+              placeholder="Create a password"
+              required
+            />
           </div>
           <button type="submit" className="submit-button" disabled={isLoading}>
             {isLoading ? "Sending OTP..." : "Next"}
@@ -117,22 +145,47 @@ const Register = () => {
             className={`input otp-input ${serverError ? "input-error" : ""}`}
             type="text"
             value={otp}
-            onChange={(e) => { setOtp(e.target.value.replace(/\D/g, "")); setServerError(""); }}
+            onChange={(e) => {
+              setOtp(e.target.value.replace(/\D/g, ""));
+              setServerError("");
+            }}
             placeholder="· · · · · ·"
             maxLength={6}
             required
           />
           {serverError && <span className="error-msg">{serverError}</span>}
         </div>
-        <button type="submit" className={`submit-button ${isSuccess ? "success" : ""}`} disabled={isLoading}>
-          {isSuccess ? "✓ Account Created!" : isLoading ? "Verifying..." : "Verify"}
+        <button
+          type="submit"
+          className={`submit-button ${isSuccess ? "success" : ""}`}
+          disabled={isLoading}
+        >
+          {isSuccess
+            ? "✓ Account Created!"
+            : isLoading
+              ? "Verifying..."
+              : "Verify"}
         </button>
         <div className="resend-row">
           <span>Didn't receive a code?</span>
-          <button type="button" className="resend-btn" onClick={handleSubmit} disabled={isLoading}>Resend</button>
+          <button
+            type="button"
+            className="resend-btn"
+            onClick={handleSubmit}
+            disabled={isLoading}
+          >
+            Resend
+          </button>
         </div>
       </form>
-      <button className="back-link" onClick={() => { setStep("register"); setServerError(""); setOtp(""); }}>
+      <button
+        className="back-link"
+        onClick={() => {
+          setStep("register");
+          setServerError("");
+          setOtp("");
+        }}
+      >
         ← Use a different email
       </button>
     </div>

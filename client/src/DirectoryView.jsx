@@ -1,4 +1,4 @@
-import BASE_URL from "../config.js";
+import BASE_URL from "./config.js";
 import React from "react";
 import { useEffect, useState, useRef } from "react";
 import { useParams, useNavigate } from "react-router-dom";
