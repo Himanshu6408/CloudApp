@@ -23,29 +23,37 @@ app.use(
   })
 );
 
-/* ✅ Then Parsers */
+/* ✅ Parsers */
 app.use(express.json());
 app.use(cookieParser(mySecretKey));
 
-/* Protected Routes */
+/* ✅ Root / Status Routes */
+app.get("/", (req, res) => {
+  res.send("Backend is running!"); // simple message for browser
+});
+
+app.get("/api/status", (req, res) => {
+  res.json({ status: "Backend is running", time: new Date() });
+});
+
+/* ✅ Protected Routes */
 app.use("/directory", checkAuth, directoryRoutes);
 app.use("/file", checkAuth, fileRoutes);
 
-/* User Routes */
-app.use("/", userRoutes);
+/* ✅ User Routes */
+app.use("/", userRoutes); // e.g., /register, /login
 
-/* Admin Route */
+/* ✅ Admin Routes */
 app.use("/admin", checkAuth, adminRoutes);
 
-/* Error Handler */
+/* ✅ Error Handler */
 app.use((err, req, res, next) => {
-  console.log(err);
-  res.status(err.status || 500).json({ error: "Something went wrong!" });
+  console.error(err);
+  res.status(err.status || 500).json({ error: err.message || "Something went wrong!" });
 });
 
+/* ✅ Connect DB and Start Server */
 const PORT = process.env.PORT || 4000;
-
-/* ✅ Connect DB first, then start server */
 connectDB()
   .then(() => {
     app.listen(PORT, () => {
