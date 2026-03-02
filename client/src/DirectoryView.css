@@ -1,0 +1,380 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: #0f0f0f;
+  font-family: "Google Sans", "Roboto", Arial, sans-serif;
+  color: #e8eaed;
+  min-height: 100vh;
+}
+
+/* ── Layout ──────────────────────────────────────────────────── */
+.directory-view {
+  width: 90vw;
+  height: 98vh;
+  margin: 0 auto;
+  padding: 0 16px 40px;
+}
+
+/* ── Header ──────────────────────────────────────────────────── */
+.directory-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 0;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: #0f0f0f;
+  border-bottom: 1px solid #2c2c2e;
+  margin-bottom: 8px;
+}
+
+.directory-header h1 {
+  font-size: 1.375rem;
+  font-weight: 400;
+  color: #e8eaed;
+  letter-spacing: 0.2px;
+}
+
+.header-links {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* ── Icon Buttons ────────────────────────────────────────────── */
+.icon-button {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: #9aa0a6;
+  font-size: 1.1rem;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.icon-button:hover:not(:disabled) {
+  background: #2c2c2e;
+  color: #8ab4f8;
+}
+
+.icon-button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* ── Primary / Secondary Buttons ─────────────────────────────── */
+.primary-button {
+  padding: 8px 20px;
+  background: #8ab4f8;
+  color: #202124;
+  border: none;
+  border-radius: 4px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.primary-button:hover {
+  background: #aecbfa;
+}
+
+.secondary-button {
+  padding: 8px 20px;
+  background: transparent;
+  color: #8ab4f8;
+  border: 1px solid #3c3c3e;
+  border-radius: 4px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.secondary-button:hover {
+  background: #2c2c2e;
+}
+
+/* ── Directory List ──────────────────────────────────────────── */
+.directory-list {
+  display: flex;
+  flex-direction: column;
+  margin-top: 8px;
+}
+
+/* ── List Item ───────────────────────────────────────────────── */
+.list-item {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.1s ease;
+  border-bottom: 1px solid #2c2c2e;
+}
+
+.list-item:last-child {
+  border-bottom: none;
+}
+
+.hoverable-row:hover {
+  background: #1c1c1e;
+}
+
+.item-left-container {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.item-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  flex: 1;
+  font-size: 0.9rem;
+  color: #e8eaed;
+}
+
+/* ── Icons ───────────────────────────────────────────────────── */
+.folder-icon {
+  color: #ffa500;
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+
+.item-left svg {
+  font-size: 1.1rem;
+  flex-shrink: 0;
+  color: #9aa0a6;
+}
+
+.item-left .folder-icon {
+  color: #ffa500;
+}
+
+/* ── Three Dots ──────────────────────────────────────────────── */
+.context-menu-trigger {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #9aa0a6;
+  font-size: 1rem;
+  margin-right: 8px;
+  flex-shrink: 0;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.context-menu-trigger:hover {
+  background: #2c2c2e;
+  color: #e8eaed;
+}
+
+/* ── Progress Bar ────────────────────────────────────────────── */
+.progress-container {
+  background: #2c2c2e;
+  border-radius: 2px;
+  margin: 0 12px 10px;
+  overflow: hidden;
+  position: relative;
+  height: 16px;
+}
+
+.progress-bar {
+  height: 100%;
+  border-radius: 2px;
+  background: #8ab4f8;
+  transition: width 0.2s ease;
+}
+
+.progress-value {
+  position: absolute;
+  font-size: 11px;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  color: #202124;
+  font-weight: 600;
+}
+
+/* ── Context Menu ────────────────────────────────────────────── */
+.context-menu {
+  position: fixed;
+  background: #2c2c2e;
+  border: 1px solid #3c3c3e;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
+  border-radius: 4px;
+  z-index: 999;
+  padding: 4px 0;
+  min-width: 160px;
+}
+
+.context-menu-item {
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 0.875rem;
+  color: #e8eaed;
+  white-space: nowrap;
+  transition: background 0.1s ease;
+}
+
+.context-menu-item:hover {
+  background: #3c3c3e;
+}
+
+/* ── Modals ──────────────────────────────────────────────────── */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.modal-content {
+  background: #1c1c1e;
+  border: 1px solid #3c3c3e;
+  padding: 28px 28px 24px;
+  width: 90%;
+  max-width: 400px;
+  border-radius: 8px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+}
+
+.modal-content h2 {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: #e8eaed;
+  margin-bottom: 16px;
+}
+
+.modal-content form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.modal-input {
+  width: 100%;
+  padding: 10px 14px;
+  background: #2c2c2e;
+  border: 1px solid #3c3c3e;
+  border-radius: 4px;
+  color: #e8eaed;
+  font-size: 0.9rem;
+  outline: none;
+  transition: border 0.15s ease;
+}
+
+.modal-input:focus {
+  border-color: #8ab4f8;
+  box-shadow: 0 0 0 1px #8ab4f8;
+}
+
+.modal-input::placeholder {
+  color: #5f6368;
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+/* ── User Menu ───────────────────────────────────────────────── */
+.user-menu-container {
+  position: relative;
+}
+
+.user-menu {
+  position: absolute;
+  top: 44px;
+  right: 0;
+  background: #1c1c1e;
+  border: 1px solid #3c3c3e;
+  border-radius: 8px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
+  z-index: 999;
+  min-width: 200px;
+  overflow: hidden;
+}
+
+.user-menu-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 16px;
+  cursor: pointer;
+  font-size: 0.875rem;
+  color: #e8eaed;
+  white-space: nowrap;
+  transition: background 0.1s ease;
+}
+
+.user-menu-item:hover:not(.user-info) {
+  background: #2c2c2e;
+}
+
+.user-menu-divider {
+  border-top: 1px solid #2c2c2e;
+}
+
+.user-info {
+  flex-direction: column;
+  align-items: flex-start;
+  cursor: default;
+  padding: 14px 16px;
+  gap: 2px;
+}
+
+.user-name {
+  font-weight: 500;
+  color: #e8eaed;
+  font-size: 0.9rem;
+}
+
+.user-email {
+  font-size: 0.8rem;
+  color: #9aa0a6;
+}
+
+.menu-item-icon {
+  font-size: 0.95rem;
+  color: #9aa0a6;
+}
+
+/* ── Error Message ───────────────────────────────────────────── */
+.error-message {
+  background: #2d1b1b;
+  border: 1px solid #5c2525;
+  color: #f28b82;
+  padding: 10px 16px;
+  border-radius: 4px;
+  font-size: 0.875rem;
+  margin: 12px 0;
+}
+
+/* ── Empty State ─────────────────────────────────────────────── */
+.no-data-message {
+  text-align: center;
+  color: #5f6368;
+  font-size: 0.9rem;
+  margin-top: 60px;
+  line-height: 1.6;
+}

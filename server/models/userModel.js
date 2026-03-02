@@ -1,0 +1,54 @@
+import { model, Schema } from "mongoose";
+import bcrypt from "bcrypt";
+
+const userSchema = new Schema(
+  {
+    name: {
+      type: String,
+      required: true,
+      minLength: [
+        3,
+        "name field should a string with at least three characters",
+      ],
+    },
+    email: {
+      type: String,
+      required: true,
+      unique: true,
+      match: [
+        /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,}$/,
+        "please enter a valid email",
+      ],
+    },
+    password: {
+      type: String,
+      required: true,
+      minLength: 4,
+    },
+    rootDirId: {
+      type: Schema.Types.ObjectId,
+      ref: "Directory",
+    },
+    role: {
+      type: String,
+      enum: ["user", "admin"],
+      default: "user",
+    },
+  },
+  {
+    strict: "throw",
+  }
+);
+
+userSchema.pre("save", async function () {
+  if (!this.isModified("password")) return;
+  this.password = await bcrypt.hash(this.password, 12);
+});
+
+userSchema.methods.comparePassword = async function (candidatePassword) {
+  return bcrypt.compare(candidatePassword, this.password);
+};
+
+const User = model("User", userSchema);
+
+export default User;

@@ -1,0 +1,36 @@
+body {
+  font-family: Arial, sans-serif;
+}
+
+.or {
+  position: relative;
+  text-align: center;
+  top: 18px;
+  margin-bottom: 35px;
+}
+.or span {
+  position: relative;
+  padding: 0 4px;
+  margin-bottom: 12px;
+}
+
+.or::before {
+  content: "";
+  background-color: gainsboro;
+  width: 44%;
+  height: 1px;
+  position: absolute;
+  left: 0;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+}
+.or::after {
+  content: "";
+  background-color: gainsboro;
+  width: 44%;
+  height: 1px;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
