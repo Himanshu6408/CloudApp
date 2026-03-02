@@ -45,6 +45,6 @@ app.use((err, req, res, next) => {
   res.status(err.status || 500).json({ error: "Something went wrong!" });
 });
 
-app.listen(4000, () => {
+app.listen(process.env.PORT ||4000, () => {
   console.log("Server Started on port 4000");
 });
