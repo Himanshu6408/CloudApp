@@ -7,7 +7,7 @@ export default function AdminPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
-  const BASE_URL = "cloud-app-eosin.vercel.app";
+  const BASE_URL = "http://localhost:4000";
   useEffect(() => {
     fetchAdminData();
   }, []);

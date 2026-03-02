@@ -1,3 +1,4 @@
+
 import React from "react";
 import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
@@ -17,6 +18,7 @@ function DirectoryHeader({
   handleFileSelect,
   disabled = false,
 }) {
+
   const [showUserMenu, setShowUserMenu] = useState(false);
   const [loggedIn, setLoggedIn] = useState(false);
   const [userName, setUserName] = useState("Guest User");
@@ -24,9 +26,11 @@ function DirectoryHeader({
 
   const userMenuRef = useRef(null);
   const navigate = useNavigate();
-  const BASE_URL = "cloud-app-eosin.vercel.app";
+
   // -------------------------------------------
   // 1. Fetch user info from /user on mount
+  const BASE_URL = "http://localhost:4000";
+  
   // -------------------------------------------
   useEffect(() => {
     async function fetchUser() {
@@ -88,7 +92,7 @@ function DirectoryHeader({
       setShowUserMenu(false);
     }
   };
-  const handleLogoutAll = async () => {
+   const handleLogoutAll = async () => {
     try {
       const response = await fetch(`${BASE_URL}/user/logout-all`, {
         method: "POST",
@@ -187,7 +191,7 @@ function DirectoryHeader({
                     <FaSignOutAlt className="menu-item-icon" />
                     <span>Logout</span>
                   </div>
-                  <div
+                   <div
                     className="user-menu-item login-btn"
                     onClick={handleLogoutAll}
                   >

@@ -3,7 +3,7 @@ import { useNavigate, Link } from "react-router-dom";
 import "./Auth.css";
 
 const Register = () => {
-  const BASE_URL = "cloud-app-eosin.vercel.app";
+  const BASE_URL = "http://localhost:4000";
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
