@@ -2,10 +2,7 @@ import mongoose from "mongoose";
 
 export async function connectDB() {
   try {
-    await mongoose.connect(
-      "mongodb://Mishra:Mishra123@localhost:27017/storageApp"
-    );
-
+    await mongoose.connect(process.env.MONGODB_URI);
     console.log("Database connected");
   } catch (err) {
     console.log(err);
