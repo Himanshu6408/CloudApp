@@ -13,14 +13,12 @@ import { connectDB } from "./config/db.js";
 
 const mySecretKey = "ProCodrr-storageApp-123$#";
 
-await connectDB();
-
 const app = express();
 
 /* ✅ CORS FIRST */
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: process.env.CLIENT_URL || "http://localhost:5173",
     credentials: true,
   })
 );
@@ -45,6 +43,16 @@ app.use((err, req, res, next) => {
   res.status(err.status || 500).json({ error: "Something went wrong!" });
 });
 
-app.listen(process.env.PORT ||4000, () => {
-  console.log("Server Started on port 4000");
-});
+const PORT = process.env.PORT || 4000;
+
+/* ✅ Connect DB first, then start server */
+connectDB()
+  .then(() => {
+    app.listen(PORT, () => {
+      console.log(`Server Started on port ${PORT}`);
+    });
+  })
+  .catch((err) => {
+    console.error("DB Connection Failed:", err);
+    process.exit(1);
+  });
