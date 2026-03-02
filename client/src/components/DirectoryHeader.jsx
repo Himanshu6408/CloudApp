@@ -9,7 +9,6 @@ import {
   FaSignInAlt,
 } from "react-icons/fa";
 
-const BASE_URL = import.meta.env.VITE_API_URL;
 function DirectoryHeader({
   directoryName,
   onCreateFolderClick,
@@ -25,7 +24,7 @@ function DirectoryHeader({
 
   const userMenuRef = useRef(null);
   const navigate = useNavigate();
-
+  const BASE_URL = "cloud-app-eosin.vercel.app";
   // -------------------------------------------
   // 1. Fetch user info from /user on mount
   // -------------------------------------------

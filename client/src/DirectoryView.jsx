@@ -9,7 +9,7 @@ import "./DirectoryView.css";
 
 
 function DirectoryView() {
-  const BASE_URL = "http://localhost:4000";
+  const BASE_URL = "cloud-app-eosin.vercel.app";
   const { dirId } = useParams();
   const navigate = useNavigate();
 
