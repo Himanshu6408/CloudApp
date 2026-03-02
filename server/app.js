@@ -1,21 +1,20 @@
+// api/index.js
 import "dotenv/config";
 import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 
-import directoryRoutes from "./routes/directoryRoutes.js";
-import fileRoutes from "./routes/fileRoutes.js";
-import userRoutes from "./routes/userRoutes.js";
-import adminRoutes from "./routes/adminRoutes.js";
+import directoryRoutes from "../routes/directoryRoutes.js";
+import fileRoutes from "../routes/fileRoutes.js";
+import userRoutes from "../routes/userRoutes.js";
+import adminRoutes from "../routes/adminRoutes.js";
 
-import checkAuth from "./middlewares/authMiddleware.js";
-import { connectDB } from "./config/db.js";
-
-const mySecretKey = "ProCodrr-storageApp-123$#";
+import checkAuth from "../middlewares/authMiddleware.js";
+import { connectDB } from "../config/db.js";
 
 const app = express();
 
-/* ✅ CORS FIRST */
+/* ✅ CORS */
 app.use(
   cors({
     origin: process.env.CLIENT_URL || "http://localhost:5173",
@@ -24,24 +23,22 @@ app.use(
 );
 
 /* ✅ Parsers */
+const mySecretKey = "ProCodrr-storageApp-123$#";
 app.use(express.json());
 app.use(cookieParser(mySecretKey));
 
-/* ✅ Root / Status Routes */
-app.get("/", (req, res) => {
-  res.send("Backend is running!"); // simple message for browser
-});
-
-app.get("/api/status", (req, res) => {
-  res.json({ status: "Backend is running", time: new Date() });
-});
+/* ✅ Root / Status */
+app.get("/", (req, res) => res.send("Backend is running!"));
+app.get("/api/status", (req, res) =>
+  res.json({ status: "Backend is running", time: new Date() })
+);
 
 /* ✅ Protected Routes */
 app.use("/directory", checkAuth, directoryRoutes);
 app.use("/file", checkAuth, fileRoutes);
 
 /* ✅ User Routes */
-app.use("/", userRoutes); // e.g., /register, /login
+app.use("/", userRoutes);
 
 /* ✅ Admin Routes */
 app.use("/admin", checkAuth, adminRoutes);
@@ -52,15 +49,17 @@ app.use((err, req, res, next) => {
   res.status(err.status || 500).json({ error: err.message || "Something went wrong!" });
 });
 
-/* ✅ Connect DB and Start Server */
-const PORT = process.env.PORT || 4000;
-connectDB()
-  .then(() => {
-    app.listen(PORT, () => {
-      console.log(`Server Started on port ${PORT}`);
-    });
-  })
-  .catch((err) => {
-    console.error("DB Connection Failed:", err);
-    process.exit(1);
-  });
+/* ✅ Connect DB (once) */
+let dbConnected = false;
+async function ensureDB() {
+  if (!dbConnected) {
+    await connectDB();
+    dbConnected = true;
+  }
+}
+
+/* ✅ Vercel Serverless Export */
+export default async function handler(req, res) {
+  await ensureDB(); // ensure DB is connected per invocation
+  return app(req, res);
+}
