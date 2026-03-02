@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from "react";
 import "./AdminPage.css";
-
 export default function AdminPage() {
   const [stats, setStats] = useState(null);
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
-  const BASE_URL = "http://localhost:4000";
   useEffect(() => {
     fetchAdminData();
   }, []);
@@ -16,13 +14,13 @@ export default function AdminPage() {
     try {
       setLoading(true);
 
-      const statsRes = await fetch(`${BASE_URL}/admin/stats`, {
+      const statsRes = await fetch("http://localhost:4000/admin/stats", {
         credentials: "include",
       });
       if (!statsRes.ok) throw new Error("Failed to fetch stats");
       const statsData = await statsRes.json();
 
-      const usersRes = await fetch(`${BASE_URL}/users`, {
+      const usersRes = await fetch("http://localhost:4000/users", {
         credentials: "include",
       });
       if (!usersRes.ok) throw new Error("Failed to fetch users");
@@ -50,6 +48,7 @@ export default function AdminPage() {
   if (error)
     return (
       <>
+        <style>{styles}</style>
         <div className="center-screen">
           <p className="error-label">Error</p>
           <p className="error-text">{error}</p>
@@ -66,6 +65,7 @@ export default function AdminPage() {
   return (
     <>
       <div className="admin-root">
+        {/* Header */}
         <div className="header">
           <div className="header-left">
             <span className="header-eyebrow">Control Panel</span>
@@ -80,6 +80,7 @@ export default function AdminPage() {
           </div>
         </div>
 
+        {/* Stats */}
         <div className="stats-grid">
           {statCards.map((card, i) => (
             <div className="stat-card" key={i}>
@@ -93,11 +94,13 @@ export default function AdminPage() {
           ))}
         </div>
 
+        {/* Users Table */}
         <div className="table-section">
           <div className="table-header">
             <h2 className="table-title">User Registry</h2>
             <span className="table-count">{users.length} records</span>
           </div>
+
           <div style={{ overflowX: "auto" }}>
             <table>
               <thead>
@@ -133,6 +136,7 @@ export default function AdminPage() {
                 ))}
               </tbody>
             </table>
+
             {users.length === 0 && (
               <div className="empty-state">No records found</div>
             )}

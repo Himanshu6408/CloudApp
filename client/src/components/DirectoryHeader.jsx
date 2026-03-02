@@ -1,4 +1,3 @@
-
 import React from "react";
 import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
@@ -18,6 +17,8 @@ function DirectoryHeader({
   handleFileSelect,
   disabled = false,
 }) {
+  // Use a constant for the API base URL
+  const BASE_URL = "http://localhost:4000";
 
   const [showUserMenu, setShowUserMenu] = useState(false);
   const [loggedIn, setLoggedIn] = useState(false);
@@ -29,8 +30,6 @@ function DirectoryHeader({
 
   // -------------------------------------------
   // 1. Fetch user info from /user on mount
-  const BASE_URL = "http://localhost:4000";
-  
   // -------------------------------------------
   useEffect(() => {
     async function fetchUser() {
