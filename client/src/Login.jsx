@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import "./Auth.css";
 
-
 const Login = () => {
   const [formData, setFormData] = useState({
     email: "himanshu@gmail.com",
