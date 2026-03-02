@@ -2,7 +2,7 @@ import BASE_URL from "../config.js";
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import "./Auth.css";
-import { GoogleLogin } from "@react-oauth/google";
+
 
 const Login = () => {
   const [formData, setFormData] = useState({
