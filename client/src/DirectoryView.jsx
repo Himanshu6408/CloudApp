@@ -1,4 +1,4 @@
-import BASE_URL from "./config.js";
+
 import React from "react";
 import { useEffect, useState, useRef } from "react";
 import { useParams, useNavigate } from "react-router-dom";
@@ -7,6 +7,8 @@ import CreateDirectoryModal from "./components/CreateDirectoryModal";
 import RenameModal from "./components/RenameModal";
 import DirectoryList from "./components/DirectoryList";
 import "./DirectoryView.css";
+
+const BASE_URL = import.meta.env.VITE_API_URL;D
 
 function DirectoryView() {
   const { dirId } = useParams();

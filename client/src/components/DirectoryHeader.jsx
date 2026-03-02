@@ -1,4 +1,3 @@
-import BASE_URL from "../config.js";
 import React from "react";
 import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
@@ -10,6 +9,7 @@ import {
   FaSignInAlt,
 } from "react-icons/fa";
 
+const BASE_URL = import.meta.env.VITE_API_URL;
 function DirectoryHeader({
   directoryName,
   onCreateFolderClick,
@@ -18,7 +18,6 @@ function DirectoryHeader({
   handleFileSelect,
   disabled = false,
 }) {
-
   const [showUserMenu, setShowUserMenu] = useState(false);
   const [loggedIn, setLoggedIn] = useState(false);
   const [userName, setUserName] = useState("Guest User");
@@ -90,7 +89,7 @@ function DirectoryHeader({
       setShowUserMenu(false);
     }
   };
-   const handleLogoutAll = async () => {
+  const handleLogoutAll = async () => {
     try {
       const response = await fetch(`${BASE_URL}/user/logout-all`, {
         method: "POST",
@@ -189,7 +188,7 @@ function DirectoryHeader({
                     <FaSignOutAlt className="menu-item-icon" />
                     <span>Logout</span>
                   </div>
-                   <div
+                  <div
                     className="user-menu-item login-btn"
                     onClick={handleLogoutAll}
                   >

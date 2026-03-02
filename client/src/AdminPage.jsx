@@ -1,4 +1,3 @@
-import BASE_URL from "./config.js";
 import React, { useEffect, useState } from "react";
 import "./AdminPage.css";
 
@@ -7,7 +6,8 @@ export default function AdminPage() {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-
+  
+  const BASE_URL = import.meta.env.VITE_API_URL;
   useEffect(() => {
     fetchAdminData();
   }, []);
@@ -69,7 +69,9 @@ export default function AdminPage() {
         <div className="header">
           <div className="header-left">
             <span className="header-eyebrow">Control Panel</span>
-            <h1 className="header-title">Admin<span>.</span></h1>
+            <h1 className="header-title">
+              Admin<span>.</span>
+            </h1>
             <p className="header-sub">System overview & user management</p>
           </div>
           <div className="header-badge">
@@ -81,7 +83,9 @@ export default function AdminPage() {
         <div className="stats-grid">
           {statCards.map((card, i) => (
             <div className="stat-card" key={i}>
-              <div className="stat-index">{String(i + 1).padStart(2, "0")} / metric</div>
+              <div className="stat-index">
+                {String(i + 1).padStart(2, "0")} / metric
+              </div>
               <div className="stat-value">{card.value ?? "—"}</div>
               <div className="stat-label">{card.label}</div>
               <div className="stat-icon">{card.icon}</div>
@@ -107,17 +111,21 @@ export default function AdminPage() {
               <tbody>
                 {users.map((user, index) => (
                   <tr key={user.id}>
-                    <td className="row-num">{String(index + 1).padStart(2, "0")}</td>
+                    <td className="row-num">
+                      {String(index + 1).padStart(2, "0")}
+                    </td>
                     <td className="user-name">{user.name}</td>
                     <td className="user-email">{user.email}</td>
                     <td>
                       {user.isLoggedIn ? (
                         <span className="status-badge status-online">
-                          <span className="status-dot" />Online
+                          <span className="status-dot" />
+                          Online
                         </span>
                       ) : (
                         <span className="status-badge status-offline">
-                          <span className="status-dot" />Offline
+                          <span className="status-dot" />
+                          Offline
                         </span>
                       )}
                     </td>
@@ -125,7 +133,9 @@ export default function AdminPage() {
                 ))}
               </tbody>
             </table>
-            {users.length === 0 && <div className="empty-state">No records found</div>}
+            {users.length === 0 && (
+              <div className="empty-state">No records found</div>
+            )}
           </div>
         </div>
       </div>

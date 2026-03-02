@@ -1,8 +1,7 @@
-import BASE_URL from "./config.js";
-import React, { useState } from "react";
+import BASE_URL from "./config.js";import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import "./Auth.css";
-
+const BASE_URL = import.meta.env.VITE_API_URL;
 const Login = () => {
   const [formData, setFormData] = useState({
     email: "himanshu@gmail.com",
