@@ -7,9 +7,9 @@ import RenameModal from "./components/RenameModal";
 import DirectoryList from "./components/DirectoryList";
 import "./DirectoryView.css";
 
-const BASE_URL = import.meta.env.VITE_API_URL;
 
 function DirectoryView() {
+  const BASE_URL = "http://localhost:4000";
   const { dirId } = useParams();
   const navigate = useNavigate();
 

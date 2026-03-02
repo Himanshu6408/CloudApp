@@ -1,8 +1,10 @@
-import BASE_URL from "./config.js";import React, { useState } from "react";
+import BASE_URL from "./config.js";
+import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import "./Auth.css";
-const BASE_URL = import.meta.env.VITE_API_URL;
+
 const Login = () => {
+  const BASE_URL = "http://localhost:4000";
   const [formData, setFormData] = useState({
     email: "himanshu@gmail.com",
     password: "abcd",
@@ -45,7 +47,9 @@ const Login = () => {
       <h2 className="heading">Login</h2>
       <form className="form" onSubmit={handleSubmit}>
         <div className="form-group">
-          <label htmlFor="email" className="label">Email</label>
+          <label htmlFor="email" className="label">
+            Email
+          </label>
           <input
             className={`input ${hasError ? "input-error" : ""}`}
             type="email"
@@ -58,7 +62,9 @@ const Login = () => {
           />
         </div>
         <div className="form-group">
-          <label htmlFor="password" className="label">Password</label>
+          <label htmlFor="password" className="label">
+            Password
+          </label>
           <input
             className={`input ${hasError ? "input-error" : ""}`}
             type="password"
@@ -71,7 +77,9 @@ const Login = () => {
           />
           {serverError && <span className="error-msg">{serverError}</span>}
         </div>
-        <button type="submit" className="submit-button">Login</button>
+        <button type="submit" className="submit-button">
+          Login
+        </button>
       </form>
       <p className="link-text">
         Don't have an account? <Link to="/register">Register</Link>

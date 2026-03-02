@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import "./Auth.css";
-const BASE_URL = import.meta.env.VITE_API_URL;
+
 const Register = () => {
+  const BASE_URL = "http://localhost:4000";
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
